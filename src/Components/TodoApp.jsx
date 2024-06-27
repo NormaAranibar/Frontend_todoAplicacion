@@ -7,9 +7,8 @@ import TodosList from "../logic/TodosList";
 const TodoApp = () => {
   // return <div>TodoApp</div>;
   const { user } = useSelector((state) => state.users);
-  // console.log(user.id);
-  console.log(user);
-  if (Object.keys(user).length === 0) {
+  console.log(user.id)
+  if (!user) {
     return <div>Loading...!</div>;
   }
   return (
