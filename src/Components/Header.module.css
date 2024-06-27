@@ -1,0 +1,14 @@
+.container
+{
+   background-color: peru;
+   display:flex; 
+   justify-content: space-between;
+   align-items: center;
+   padding: 0 50px;
+}
+
+.nav
+{
+  display: flex;
+  gap:20px;  
+}
