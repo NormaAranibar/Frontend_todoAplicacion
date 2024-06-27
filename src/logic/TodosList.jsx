@@ -6,11 +6,11 @@ const TodosList = ({ id }) => {
   const dispatch = useDispatch();
 
   const { todos, status } = useSelector((state) => state.todos);
-  console.log(todos);
-  console.log(id)
+  // console.log(todos);
+  console.log(id);
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchTodos("1"));
+      dispatch(fetchTodos(id));
     }
   }, [status, dispatch]);
 
