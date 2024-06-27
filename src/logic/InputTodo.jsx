@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
+import { agregarTodo } from "../slices/todosSlice";
+import { useDispatch } from "react-redux";
 
-const InputTodo = () => {
+const InputTodo = ({id}) => {
+  const dispatch = useDispatch()
   const [content, setContent] = useState("");
   const [message, setMessage] = useState("");
 
@@ -12,8 +15,9 @@ const InputTodo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (content.trim()) {
-      addTodoItem(title);
-      setTitle("");
+      //addTodoItem(title);
+      dispatch(agregarTodo({content,idUser:id}))
+      setContent("");
       setMessage("");
     } else {
       setMessage("Por favor agrega contenido!");

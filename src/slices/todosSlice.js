@@ -7,6 +7,13 @@ const initialState = {
   error: null,
 };
 
+export const agregarTodo = createAsyncThunk(
+  "todos/agregarTodo",
+  async (contenido) => {
+    const response = await Axios.post(`/api/v1/todos`,contenido);
+    return response.data;
+  }
+);
 export const fetchTodos = createAsyncThunk(
   "todos/fetchTodos",
   async (idUser) => {
@@ -31,8 +38,21 @@ const todosSlice = createSlice({
       .addCase(fetchTodos.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
-      });
-  },
+      })
+      .addCase(agregarTodo.pending, (state, action) => {
+        state.status = "loading";
+        
+      })
+      .addCase(agregarTodo.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.todos.push(action.payload);
+        
+      })
+      .addCase(agregarTodo.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+    },
 });
 
 export default todosSlice.reducer;

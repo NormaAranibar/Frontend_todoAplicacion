@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUser } from "../slices/usersSlice";
+import styles from './Login.module.css'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.contenedor}>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       <div>
         <label htmlFor="email">Email</label>

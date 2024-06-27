@@ -9,7 +9,7 @@ const TodoApp = () => {
   // return <div>TodoApp</div>;
   const { user } = useSelector((state) => state.users);
   console.log(user.id)
-  if (!user) {
+  if (Object.keys(user).length === 0) {
     return <div>Loading...!</div>;
   }
   return (
