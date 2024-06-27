@@ -1,9 +1,15 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
-    <header>
-      <h1>Aplicacion de Tareas</h1>
-      <p>Estas son tareas que debo realizar</p>
-    </header>
+    <div className="container">
+      <p>Todo App</p>
+      <nav>
+        <Link to="/login">login</Link>
+        <Link to="/">home</Link>
+        <Link to="/about">about</Link>
+      </nav>
+    </div>
   );
 };
 
