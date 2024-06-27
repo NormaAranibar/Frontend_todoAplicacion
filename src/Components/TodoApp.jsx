@@ -5,7 +5,6 @@ import InputTodo from "../logic/InputTodo";
 import TodosList from "../logic/TodosList";
 
 const TodoApp = () => {
- 
   // return <div>TodoApp</div>;
   const { user } = useSelector((state) => state.users);
   console.log(user.id)
@@ -14,8 +13,8 @@ const TodoApp = () => {
   }
   return (
     <div>
-      <InputTodo id={user.id}/>
-      <TodosList id={user.id}/>
+      <InputTodo id={user.id} />
+      <TodosList id={user.id} />
     </div>
   );
 };
