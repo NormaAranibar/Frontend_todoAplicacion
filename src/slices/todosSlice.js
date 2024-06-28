@@ -21,6 +21,13 @@ export const agregarTodo = createAsyncThunk(
     return response.data;
   }
 );
+export const deleteTodo = createAsyncThunk(
+  "todos/deleteTodo",
+  async (id) => {
+    const response = await Axios.delete(`/api/v1/todos/${id}`);
+    return response.data;
+  }
+);
 export const fetchTodos = createAsyncThunk(
   "todos/fetchTodos",
   async (idUser) => {
@@ -66,14 +73,28 @@ const todosSlice = createSlice({
       .addCase(updateTodo.fulfilled, (state, action) => {
         state.status = "succeeded";
         const {id} = action.payload;
-        const element = state.todos.find(todo =>todo.id = id);
+        const element = state.todos.find(todo =>todo.id === id);
         const index = state.todos.indexOf(element);
         state.todos[index] = action.payload;
-        //state.todos.push("tiene que funcionar");
+       
       })
       .addCase(updateTodo.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(deleteTodo.pending, (state, action) => {
+        state.status = "loading";
+        
+      })
+      .addCase(deleteTodo.fulfilled, (state, action) => {
+        state.status = "succeeded"; 
+        const {id} = action.payload;
+        state.todos = state.todos.filter(todo => todo.id !==id)
+        
+      })
+      .addCase(deleteTodo.rejected, (state, action) => {
+        state.status = "failed";
+        
       })
     },
 });

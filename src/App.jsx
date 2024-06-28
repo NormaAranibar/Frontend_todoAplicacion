@@ -6,6 +6,7 @@ import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import Dashboard from "./Components/Dashboard";
 import TodoApp from "./Components/TodoApp";
+import { Footer } from "./Components/Footer";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/todoapp" element={<TodoApp />} />
       </Routes>
+      <Footer /> 
     </BrowserRouter>
   );
 };
