@@ -35,34 +35,39 @@
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTodos /*, updateTodo, deleteTodo*/ } from "../slices/todosSlice"; // Import all actions
+import { fetchTodos , updateTodo, /*deleteTodo */} from "../slices/todosSlice"; // Import all actions
 
 const TodosList = ({ id }) => {
   const [editingTodoId, setEditingTodoId] = useState(null); // Track currently edited todo ID
+  const [contenido,setContenido] = useState("");
   const dispatch = useDispatch();
   const { todos, status } = useSelector((state) => state.todos);
+  console.log(todos);
 
   // Fetch todos on initial render
   useEffect(() => {
     dispatch(fetchTodos(id));
   }, [dispatch, id]);
 
+  const handleUpdate = (id) => {
+    dispatch(updateTodo({content:contenido,id}));
+    setEditingTodoId(null)
+  };
+
   const handleEditClick = (todo) => {
     setEditingTodoId(todo.id); // Mark todo for editing
+    setContenido(todo.body)
   };
 
   const handleDeleteClick = (todoId) => {
     dispatch(deleteTodo(todoId)); // Dispatch delete action
   };
 
-  const handleEditChange = (event, todoId) => {
-    const editedText = event.target.value;
-    dispatch(updateTodo({ id: todoId, body: editedText })); // Dispatch update action
-  };
+   
+  const handleChange = event =>{
+    setContenido(event.target.value)
 
-  const handleEditCancel = () => {
-    setEditingTodoId(null); // Stop editing
-  };
+  }
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -78,25 +83,22 @@ const TodosList = ({ id }) => {
       {todos.map((todo) => (
         <div key={todo.id}>
           {editingTodoId === todo.id ? (
-            <>
+            <div key={todo.id}>
               <input
                 type="text"
-                defaultValue={todo.body}
-                onBlur={(event) => handleEditChange(event, todo.id)} // Handle blur for saving
-                onKeyPress={(event) =>
-                  event.key === "Enter" && handleEditChange(event, todo.id)
-                } // Handle Enter for saving
+                value={contenido}
+                onChange={(event) => handleChange(event)}
               />
-              <button>Actualizar</button>
-            </>
+              <button onClick={() =>handleUpdate(todo.id)}>Actualizar</button>
+            </div>
           ) : (
-            <>
+            <div key={todo.id + 1}>
               <span>{todo.body}</span>
               <button onClick={() => handleEditClick(todo)}>Editar</button>
               <button onClick={() => handleDeleteClick(todo.id)}>
                 Eliminar
               </button>
-            </>
+            </div>
           )}
         </div>
       ))}
