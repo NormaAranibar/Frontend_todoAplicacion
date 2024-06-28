@@ -1,41 +1,8 @@
-// import { useState, useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { fetchTodos } from "../slices/todosSlice";
-
-// const TodosList = ({ id }) => {
-//   const [editing, setEditing] = useState(false);
-//   const dispatch = useDispatch();
-
-//   const { todos, status } = useSelector((state) => state.todos);
-
-//   useEffect(() => {
-//     if (status === "idle") {
-//       dispatch(fetchTodos(id));
-//     }
-//   }, [status, dispatch]);
-
-//   if (todos.length === 0) {
-//     return <div>Loading...</div>;
-//   }
-
-//   return (
-//     <div>
-//       {todos.map((tarea) => (
-//         {!editing?(<div>
-//           <span>{tarea.body}</span>
-//           <button>editar</button>
-//           <button>eliminar</button>
-//         </div>):(<input />)}
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default TodosList;
+import TodoItem from "../Components/todoItem";
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTodos, updateTodo /*deleteTodo */ } from "../slices/todosSlice"; // Import all actions
+import { fetchTodos , updateTodo, /*deleteTodo */} from "../slices/todosSlice"; // Import all actions
 
 const TodosList = ({ id }) => {
   const [editingTodoId, setEditingTodoId] = useState(null); // Track currently edited todo ID
