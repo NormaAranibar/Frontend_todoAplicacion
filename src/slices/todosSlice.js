@@ -6,7 +6,14 @@ const initialState = {
   status: "idle",
   error: null,
 };
-
+export const updateTodo = createAsyncThunk(
+  "todos/updateTodo",
+  async (contenido) => {
+    const {id,content}  = contenido;
+    const response = await Axios.put(`/api/v1/todos/${id}`,{content});
+    return response.data;
+  }
+);
 export const agregarTodo = createAsyncThunk(
   "todos/agregarTodo",
   async (contenido) => {
@@ -52,7 +59,23 @@ const todosSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
+      .addCase(updateTodo.pending, (state, action) => {
+        state.status = "loading";
+        
+      })
+      .addCase(updateTodo.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const {id} = action.payload;
+        const element = state.todos.find(todo =>todo.id = id);
+        const index = state.todos.indexOf(element);
+        state.todos[index] = action.payload;
+        //state.todos.push("tiene que funcionar");
+      })
+      .addCase(updateTodo.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
     },
 });
-
+ 
 export default todosSlice.reducer;
